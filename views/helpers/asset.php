@@ -74,6 +74,19 @@ class AssetHelper extends Helper {
     }
   }
 
+  /**
+   * Kludge to allow scripts to be output in the footer.
+   *
+   * Basically, reset the initialized status, and then call scripts_for_layout.
+   *
+   * @return string
+   **/
+  function js_for_footer() {
+      $this->initialized = false;
+      return $this->scripts_for_layout('js');
+      
+  }
+
   function scripts_for_layout($types=array('js', 'css', 'codeblock')) {
     if (!is_array($types)) {
       $types = array($types);
@@ -106,6 +119,10 @@ class AssetHelper extends Helper {
 					$scripts_for_layout[] = $asset['assets']['script'];
 			}
 		}
+
+    //We purge the __scripts var, so we can call scripts_for_layout() again, to process any new js after the 
+    //first call to scripts_for_layout() We do this so we can insert combined JS in the footer. see js_for_footer()
+    $this->View->__scripts = array();
 
     return implode("\n\t", $scripts_for_layout) . "\n\t";
   }
@@ -178,6 +195,7 @@ class AssetHelper extends Helper {
   }
 
   function __process($type, $assets) {
+
     $path = $this->__getPath($type);
     $folder = new Folder($this->paths['wwwRoot'] . $this->cachePaths[$type], true);
 
