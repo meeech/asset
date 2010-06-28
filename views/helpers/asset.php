@@ -224,7 +224,7 @@ class AssetHelper extends Helper {
           $tidy = new csstidy();
 		  
 		  $tidy->set_cfg('preserve_css', false);
-		  $tidy->set_cfg('ie_fix_friendly', true);
+		  $tidy->set_cfg('star_hack', true);
 		  $tidy->set_cfg('optimise_shorthands', 0); //Maintain the order of ie hacks (properties)
 		  $tidy->set_cfg('discard_invalid_properties', false);
 
