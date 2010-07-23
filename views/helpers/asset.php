@@ -26,7 +26,7 @@ class AssetHelper extends Helper {
 
   //there is a *minimal* perfomance hit associated with looking up the filemtimes
   //if you clean out your cached dir (as set below) on builds then you don't need this.
-  var $checkTs = false;
+  var $checkTs = true;
 
   //Class for localizing JS files if JS I18N plugin is installed
   //http://github.com/mcurry/js/tree/master
